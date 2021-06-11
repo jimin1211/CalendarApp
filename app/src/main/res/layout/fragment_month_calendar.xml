@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context=".MonthCalendarFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <!--<LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp"
+        android:id="@+id/LinearLayout"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <GridView
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:numColumns="7"/>
+        </FrameLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/LinearLayout"/>
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <GridView
+                        android:id="@+id/gridview_week"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:verticalSpacing="4dp"
+                        android:numColumns="7" />
+                </FrameLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <!--<FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <GridView
+                android:id="@+id/gridview_week"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="7" />
+        </FrameLayout>-->
+
+    </LinearLayout>
+
+</LinearLayout>
