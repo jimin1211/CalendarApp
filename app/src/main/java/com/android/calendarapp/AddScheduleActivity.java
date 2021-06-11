@@ -5,9 +5,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TimePicker;
+
+import java.text.DateFormat;
 
 public class AddScheduleActivity extends AppCompatActivity {
     private String year, month, day, time;
@@ -25,15 +30,23 @@ public class AddScheduleActivity extends AppCompatActivity {
         EditText title = (EditText)findViewById(R.id.title);
         title.setText(year+"년 "+month+"월 "+day+"일 "+time+"시");
 
-        /*Intent intent = getIntent();
-        year = intent.getExtras().getString("year");
-        month = intent.getExtras().getString("month");
-        day = intent.getExtras().getString("day");
-        time = intent.getExtras().getString("time");
+        TimePicker sTimePicker = (TimePicker)findViewById(R.id.start_time_picker);
+        sTimePicker.setCurrentHour(Integer.parseInt(time));
+        sTimePicker.setCurrentMinute(0);
+
+        TimePicker eTimePicker = (TimePicker)findViewById(R.id.end_time_picker);
+        eTimePicker.setCurrentHour(Integer.parseInt(time)+1);
+        eTimePicker.setCurrentMinute(0);
+
+        /*TimePickerDialog mTimePickerDialog = new TimePickerDialog(AddScheduleActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            }
+        },Integer.parseInt(time),0,true );*/
 
 
 
-        Fragment fragment = new AddScheduleFragment();
+        /*Fragment fragment = new AddScheduleFragment();
         Bundle bundle = new Bundle();
         bundle.putString("year", year);
         bundle.putString("month", month);
@@ -52,5 +65,15 @@ public class AddScheduleActivity extends AppCompatActivity {
         //FragmentTransaction의 add() 메소드 통해 동적으로 fragment 추가
         fragmentTransaction.commit();
         //fragmentTransaction의 변경사항 저장*/
+    }
+    public Dialog onCreateDialog (Bundle savedInstanceState){
+        TimePickerDialog mTimePickerDialog = new TimePickerDialog(AddScheduleActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                hourOfDay = Integer.parseInt(time);
+                minute = 0;
+            }
+        },Integer.parseInt(time),0,true );
+        return mTimePickerDialog;
     }
 }
