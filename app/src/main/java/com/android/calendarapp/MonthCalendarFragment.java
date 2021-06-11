@@ -1,8 +1,5 @@
 package com.android.calendarapp;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
@@ -10,25 +7,15 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.text.method.ScrollingMovementMethod;
-import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -186,7 +173,6 @@ public class MonthCalendarFragment extends Fragment {
 
         View rootview = inflater.inflate(R.layout.fragment_month_calendar, container, false);
         //inflate() 함수 통해 fragment_month_calendar 파일로부터 레이아웃 로드하여 rootview에 저장
-
 
 
         if(mParam3 == -1){ //mParam3이 -1이면 월간달력 생성

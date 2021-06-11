@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class AddScheduleFragment extends Fragment {
+
+    private String year, month, day, time;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +61,21 @@ public class AddScheduleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        View rootview = inflater.inflate(R.layout.fragment_add_schedule, container, false);
+
+        if(getArguments() != null){
+            year = getArguments().getString("year"); // 전달한 key 값
+            month = getArguments().getString("month"); // 전달한 key 값
+            day = getArguments().getString("day");
+            time = getArguments().getString("time");
+        }
+
+
+        EditText title = (EditText)rootview.findViewById(R.id.title);
+        title.setHint("하이하이");
+        //title.setText(year+"년 "+month+"월 "+day+"일 "+time+"시");
+
         return inflater.inflate(R.layout.fragment_add_schedule, container, false);
     }
 }
