@@ -16,7 +16,7 @@ public final class UserContract {
         public static final String TABLE_NAME = "MEMO";
         public static final String KEY_MEMO = "memo";
 
-        public static final String CREATE_RABLE =
+        public static final String CREATE_TABLE =
                 "CREATE TABLE"+TABLE_NAME+"("+ _ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
                         KEY_MEMO + TEXT_TYPE +  " )";
         public static final String DELETE_TABLE = "DROP THABLE IF EXITS " + TABLE_NAME;

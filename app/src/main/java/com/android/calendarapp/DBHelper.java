@@ -19,8 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.i(TAG,getClass().getName()+"onCreate()");
-        db.execSQL(UserContract.User.CREATE_RABLE);
-        onCreate(db);
+        db.execSQL(UserContract.User.CREATE_TABLE);
     }
 
     @Override
@@ -33,8 +32,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public void insertUserBySQL(String memo) {
         try {
             String sql = String.format(
-                    "INSERT INTO %s (%s) VALUES(NULL,'%s')",
+                    "INSERT INTO %s (%s, %s) VALUES(NULL,'%s')",
                     UserContract.User.TABLE_NAME,
+                    UserContract.User._ID,
                     UserContract.User.KEY_MEMO,
                     memo
             );

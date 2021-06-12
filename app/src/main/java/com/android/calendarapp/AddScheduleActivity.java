@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -149,7 +150,8 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
     }
 
     private void viewAllToTextView() {
-        TextView result = (TextView)findViewById(R.id.item_textview);
+        TextView result = (TextView)findViewById(R.id.result);
+        //여기가 문제
 
          Cursor cursor = mDbHelper.getAllUsersBySQL();
 
