@@ -7,6 +7,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -43,6 +45,8 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
     GoogleMap mGoogleMap = null;
     final private String TAG = "LocationService";
 
+    private DBHelper mDbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,9 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
         month = intent.getExtras().getString("month");
         day = intent.getExtras().getString("day");
         time = intent.getExtras().getString("time");
+
+        mDbHelper = new DBHelper(this);
+
 
         EditText title = (EditText)findViewById(R.id.title);
         title.setPrivateImeOptions("defaultInputmode=korean;"); //한글자판 입력
@@ -115,6 +122,13 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
         memo.setPrivateImeOptions("defaultInputmode=korean;"); //한글자판 입력
 
         Button save = (Button)findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertRecord();
+                viewAllToTextView();
+            }
+        });
 
         Button cancle = (Button)findViewById(R.id.cancel);
         cancle.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +139,50 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
         });
 
         Button remove = (Button)findViewById(R.id.remove);
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteRecord();
+                viewAllToTextView();
+            }
+        });
     }
 
+    private void viewAllToTextView() {
+        TextView result = (TextView)findViewById(R.id.item_textview);
+
+         Cursor cursor = mDbHelper.getAllUsersBySQL();
+
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+            buffer.append(cursor.getString(0)+" \t");
+            //Cursor 객체 통한 쿼리 결과 접근
+            //쿼리 결과는 결과셋 자체가 리턴되지 않으며, 위치를 가리키는 Cursor로 리턴
+        }
+        result.setText(buffer);
+    }
+
+    private void insertRecord() {
+        EditText memo = (EditText)findViewById(R.id.memo);
+
+        mDbHelper.insertUserBySQL(memo.getText().toString());
+//        long nOfRows = mDbHelper.insertUserByMethod(memo.getText().toString());
+//        if (nOfRows >0)
+//            Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
+//        else
+//            Toast.makeText(this,"No Record Inserted", Toast.LENGTH_SHORT).show();
+    }
+
+    private void deleteRecord() {
+        EditText memo = (EditText)findViewById(R.id.memo);
+
+        mDbHelper.deleteUserBySQL(memo.getText().toString());
+//        long nOfRows = mDbHelper.deleteUserByMethod(memo.getText().toString());
+//        if (nOfRows >0)
+//            Toast.makeText(this,"Record Deleted", Toast.LENGTH_SHORT).show();
+//        else
+//            Toast.makeText(this,"No Record Deleted", Toast.LENGTH_SHORT).show();
+    }
 
 
     final int REQUEST_PERMISSIONS_FOR_LAST_KNOWN_LOCATION = 0;
