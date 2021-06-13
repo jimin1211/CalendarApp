@@ -21,10 +21,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="60dp"
-        android:id="@+id/LinearItem"/> <!--여기에 동적으로 textView 생성해서 일정 추가-->
+        android:id="@+id/LinearItem"
+        /> <!--여기에 동적으로 textView 생성해서 일정 추가-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/result" />
+        android:id="@+id/result" /> <!--일정추가 위한 TextView-->
+
 </LinearLayout>
