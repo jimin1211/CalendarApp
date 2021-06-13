@@ -1,10 +1,12 @@
 package com.android.calendarapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -39,6 +41,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class AddScheduleActivity extends AppCompatActivity implements OnMapReadyCallback {
     private String year, month, day, time;
@@ -127,8 +131,8 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View view) {
                 insertRecord();
-                viewAllToTextView();
-                // 저장 버튼을 눌렀을 때, 일정이 아니라 해당 달의 뷰가 저장이 됨...;
+//                viewAllToTextView();
+
             }
         });
 
@@ -144,13 +148,21 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteRecord();
-                viewAllToTextView();
+                AlertDialog.Builder dlg = new AlertDialog.Builder(AddScheduleActivity.this);
+                dlg.setMessage("정말 삭제하시겠습니까?"); //삭제 버튼 눌렀을 때, 메시지 띄우기
+                dlg.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(AddScheduleActivity.this,"확인을 누르셨습니다.",LENGTH_SHORT).show();
+                        deleteRecord(); //Record 삭제
+                        onBackPressed(); //뒤로가기
+                    }
+                });
+                dlg.show();
             }
         });
     }
 
-    /** 다시 보기 **/
     private void viewAllToTextView() {
         TextView result = (TextView)findViewById(R.id.result);
 
