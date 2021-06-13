@@ -14,21 +14,28 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
         super(context, UserContract.DB_NAME,null, UserContract.DATABASEVERSION);
+        //context - DB 생성 컨텍스트(보통 MainActivity)
+        //DB_NAME - DB 파일 이름
+        //SQLiteDatabase.CursorFactory - 표준커서 사용시, null
+        //DATABASEVERSION - DB 버전
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //DB 처음 생성 시, 호출 (테이블 생성 & 초기 레코드 삽입)
         Log.i(TAG,getClass().getName()+"onCreate()");
         db.execSQL(UserContract.User.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        //DB 업그레이드 시, 호출 (기존 테이블 삭제 및 생성 / AFTER TABLE로 스키마 수정)
         Log.i(TAG,getClass().getName() +".onUpgrade()");
         db.execSQL(UserContract.User.DELETE_TABLE);
         onCreate(db);
     }
 
+    /** 다시 보기 **/
     public void insertUserBySQL(String memo) {
         try {
             String sql = String.format(
@@ -38,8 +45,9 @@ public class DBHelper extends SQLiteOpenHelper {
                     UserContract.User.KEY_MEMO,
                     memo
             );
-
             getWritableDatabase().execSQL(sql);
+            //getWritableDatabase()의 execSQL(sql) 통해 SELECT 명령 제외한 대부분의 명령 직접 실행
+
         } catch (SQLException e) {
             Log.e(TAG,"Error in inserting recordes");
         }
@@ -48,6 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getAllUsersBySQL() {
         String sql = "Select * FROM " + UserContract.User.TABLE_NAME;
         return getReadableDatabase().rawQuery(sql,null);
+        //getReadableDatabase()의 rawQuery() 통해 SELECT sql문 실행, 리턴
     }
 
     public void deleteUserBySQL(String _id) {
@@ -63,38 +72,38 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public long insertUserByMethod(String memo) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(UserContract.User.KEY_MEMO, memo);
-
-        return db.insert(UserContract.User.TABLE_NAME,null,values);
-    }
-
-    public Cursor getAllUsersByMethod() {
-        SQLiteDatabase db = getReadableDatabase();
-        return db.query(UserContract.User.TABLE_NAME,null,null,null,null,null,null);
-    }
-
-    public long deleteUserByMethod(String _id) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        String whereClause = UserContract.User._ID +" = ?";
-        String[] whereArgs ={_id};
-        return db.delete(UserContract.User.TABLE_NAME, whereClause, whereArgs);
-    }
-
-    public long updateUserByMethod(String _id, String memo) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(UserContract.User.KEY_MEMO, memo);
-
-        String whereClause = UserContract.User._ID +" = ?";
-        String[] whereArgs ={_id};
-
-        return db.update(UserContract.User.TABLE_NAME, values, whereClause, whereArgs);
-    }
+//    public long insertUserByMethod(String memo) {
+//        SQLiteDatabase db = getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(UserContract.User.KEY_MEMO, memo);
+//
+//        return db.insert(UserContract.User.TABLE_NAME,null,values);
+//    }
+//
+//    public Cursor getAllUsersByMethod() {
+//        SQLiteDatabase db = getReadableDatabase();
+//        return db.query(UserContract.User.TABLE_NAME,null,null,null,null,null,null);
+//    }
+//
+//    public long deleteUserByMethod(String _id) {
+//        SQLiteDatabase db = getWritableDatabase();
+//
+//        String whereClause = UserContract.User._ID +" = ?";
+//        String[] whereArgs ={_id};
+//        return db.delete(UserContract.User.TABLE_NAME, whereClause, whereArgs);
+//    }
+//
+//    public long updateUserByMethod(String _id, String memo) {
+//        SQLiteDatabase db = getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//        values.put(UserContract.User.KEY_MEMO, memo);
+//
+//        String whereClause = UserContract.User._ID +" = ?";
+//        String[] whereArgs ={_id};
+//
+//        return db.update(UserContract.User.TABLE_NAME, values, whereClause, whereArgs);
+//    }
 
 
 }

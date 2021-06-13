@@ -128,6 +128,7 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
             public void onClick(View view) {
                 insertRecord();
                 viewAllToTextView();
+                // 저장 버튼을 눌렀을 때, 일정이 아니라 해당 달의 뷰가 저장이 됨...;
             }
         });
 
@@ -149,41 +150,33 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
         });
     }
 
+    /** 다시 보기 **/
     private void viewAllToTextView() {
         TextView result = (TextView)findViewById(R.id.result);
-        //여기가 문제
 
-         Cursor cursor = mDbHelper.getAllUsersBySQL();
+        Cursor cursor = mDbHelper.getAllUsersBySQL();
+        //Cursor 객체 통한 쿼리 결과 접근
+        //쿼리 결과는 결과셋 자체가 리턴되지 않으며, 위치를 가리키는 Cursor로 리턴
 
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
+            //moveToNext() 통해 다음 레코드 위치로 이동
+            //마지막 레코드이면 false 리턴
             buffer.append(cursor.getString(0)+" \t");
-            //Cursor 객체 통한 쿼리 결과 접근
-            //쿼리 결과는 결과셋 자체가 리턴되지 않으며, 위치를 가리키는 Cursor로 리턴
+            //cursor의 컬럼값을 문자열로 구해서 buffer에 추가
         }
         result.setText(buffer);
+        //TextView - result의 text 값으로 buffer의 내용 넣기
     }
 
     private void insertRecord() {
         EditText memo = (EditText)findViewById(R.id.memo);
-
         mDbHelper.insertUserBySQL(memo.getText().toString());
-//        long nOfRows = mDbHelper.insertUserByMethod(memo.getText().toString());
-//        if (nOfRows >0)
-//            Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
-//        else
-//            Toast.makeText(this,"No Record Inserted", Toast.LENGTH_SHORT).show();
     }
 
     private void deleteRecord() {
         EditText memo = (EditText)findViewById(R.id.memo);
-
         mDbHelper.deleteUserBySQL(memo.getText().toString());
-//        long nOfRows = mDbHelper.deleteUserByMethod(memo.getText().toString());
-//        if (nOfRows >0)
-//            Toast.makeText(this,"Record Deleted", Toast.LENGTH_SHORT).show();
-//        else
-//            Toast.makeText(this,"No Record Deleted", Toast.LENGTH_SHORT).show();
     }
 
 
