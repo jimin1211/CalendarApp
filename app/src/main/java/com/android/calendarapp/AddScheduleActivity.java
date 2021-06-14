@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -131,8 +132,7 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View view) {
                 insertRecord();
-//                viewAllToTextView();
-
+                viewAllToTextView();
             }
         });
 
@@ -176,6 +176,7 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
             //마지막 레코드이면 false 리턴
             buffer.append(cursor.getString(0)+" \t");
             //cursor의 컬럼값을 문자열로 구해서 buffer에 추가
+
         }
         result.setText(buffer);
         //TextView - result의 text 값으로 buffer의 내용 넣기

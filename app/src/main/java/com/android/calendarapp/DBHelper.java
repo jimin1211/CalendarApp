@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import static com.android.calendarapp.UserContract.DATABASEVERSION;
+
 
 public class DBHelper extends SQLiteOpenHelper {
     final static String TAG = "SQLiteDB";
@@ -35,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /** 다시 보기 **/
+
     public void insertUserBySQL(String memo) {
         try {
             String sql = String.format(
@@ -71,39 +73,4 @@ public class DBHelper extends SQLiteOpenHelper {
             Log.e(TAG,"Error in deleting recordes");
         }
     }
-
-//    public long insertUserByMethod(String memo) {
-//        SQLiteDatabase db = getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(UserContract.User.KEY_MEMO, memo);
-//
-//        return db.insert(UserContract.User.TABLE_NAME,null,values);
-//    }
-//
-//    public Cursor getAllUsersByMethod() {
-//        SQLiteDatabase db = getReadableDatabase();
-//        return db.query(UserContract.User.TABLE_NAME,null,null,null,null,null,null);
-//    }
-//
-//    public long deleteUserByMethod(String _id) {
-//        SQLiteDatabase db = getWritableDatabase();
-//
-//        String whereClause = UserContract.User._ID +" = ?";
-//        String[] whereArgs ={_id};
-//        return db.delete(UserContract.User.TABLE_NAME, whereClause, whereArgs);
-//    }
-//
-//    public long updateUserByMethod(String _id, String memo) {
-//        SQLiteDatabase db = getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put(UserContract.User.KEY_MEMO, memo);
-//
-//        String whereClause = UserContract.User._ID +" = ?";
-//        String[] whereArgs ={_id};
-//
-//        return db.update(UserContract.User.TABLE_NAME, values, whereClause, whereArgs);
-//    }
-
-
 }
