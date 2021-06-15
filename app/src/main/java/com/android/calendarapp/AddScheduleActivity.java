@@ -177,13 +177,13 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
     }
 
     private void insertRecord() {
-        EditText memo = (EditText)findViewById(R.id.memo);
-        mDbHelper.insertUserBySQL(memo.getText().toString());
+        EditText title = (EditText)findViewById(R.id.title);
+        mDbHelper.insertUserBySQL(title.getText().toString());
     }
 
     private void deleteRecord() {
-        EditText memo = (EditText)findViewById(R.id.memo);
-        mDbHelper.deleteUserBySQL(memo.getText().toString());
+        EditText title = (EditText)findViewById(R.id.title);
+        mDbHelper.deleteUserBySQL(title.getText().toString());
     }
 
 
