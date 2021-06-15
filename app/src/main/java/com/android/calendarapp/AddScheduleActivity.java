@@ -101,10 +101,6 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
                         List<Address> listAddress = geocoder.getFromLocationName(mapinput.getText().toString(), 1);
                         if (listAddress.size() > 0) { // 주소값이 존재 하면
                             addr = listAddress.get(0); // Address형태로
-                            /*lat = (int) (addr.getLatitude());
-                            lng = (int) (addr.getLongitude());*/
-
-                            //Log.d(TAG, "주소로부터 취득한 위도 : " + lat + ", 경도 : " + lng);
 
                             LatLng location = new LatLng(addr.getLatitude(), addr.getLongitude());
 
@@ -118,8 +114,6 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-
                 }
             }
         });
@@ -209,7 +203,6 @@ public class AddScheduleActivity extends AppCompatActivity implements OnMapReady
         }
 
         // 2. Task<Location> 객체 반환
-        //mFusedLocationClient : 위치정보 제공자
         Task task = mFusedLocationClient.getLastLocation(); //위치 정보를 반환받기 위해(마지막으로 알려진 위치!!)
 
         // 3. Task가 성공적으로 완료 후 호출되는 OnSuccessListener 등록

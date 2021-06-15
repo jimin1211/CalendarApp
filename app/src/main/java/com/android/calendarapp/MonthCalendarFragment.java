@@ -183,18 +183,7 @@ public class MonthCalendarFragment extends Fragment {
 
             GridView gridView = (GridView) rootview.findViewById(R.id.gridview);
             gridView.setAdapter(mGridViewAdapter);
-
-            /*//girdview id를 가진 화면 레이아웃에 정의된 GridVies 객체 로딩
-            GridView gridView = (GridView) rootview.findViewById(R.id.gridview);
-            //어댑터 준비 (date 배열 객체 이용, simple_list_item_1 리소스 사용)
-            ArrayAdapter<String> mGridViewAdapter = new ArrayAdapter<String>(
-                    getActivity(),
-                    android.R.layout.simple_list_item_1,
-                    date);
-            //어댑터를 GridView 객체에 연결
-            gridView.setAdapter(mGridViewAdapter);*/
-
-
+            
             //선택된 날짜 정보를 토스트 메세지로 표시
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 @Override
@@ -211,13 +200,10 @@ public class MonthCalendarFragment extends Fragment {
                         Year = Integer.parseInt(((DayItem)mGridViewAdapter.getItem(position)).year);
                         Month = Integer.parseInt(((DayItem)mGridViewAdapter.getItem(position)).month) + 1;
                         Day =  Integer.parseInt(((DayItem)mGridViewAdapter.getItem(position)).day);
-                        Time = 13;
-                        /***아래로 고치기**/
-                        //Time = Calendar.getInstance().HOUR_OF_DAY;
+                        Time = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                     }
                 }
             });
-            //getActivity().startActivity(intent);
 
         }
 
@@ -232,7 +218,7 @@ public class MonthCalendarFragment extends Fragment {
             GridView gridview_week = (GridView) rootview.findViewById(R.id.gridview_week);
             String blink[] = new String[24*7];
             for(int i=0; i<24*7; i++){
-                blink[i] = i+"";
+                blink[i] = "";
             }
             ArrayAdapter<String> GridViewAdapter = new ArrayAdapter<String>(
                     getActivity(),
@@ -246,9 +232,6 @@ public class MonthCalendarFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    /**Toast.makeText((AppCompatActivity) getActivity(),
-                     ((DayItem)wGridViewAdapter.getItem(position%7)).year + "년" + (((DayItem)wGridViewAdapter.getItem(position%7)).month + 1) + "월" + ((DayItem)wGridViewAdapter.getItem(position%7)).day + "일",
-                     Toast.LENGTH_SHORT).show();**/
                     Toast.makeText((AppCompatActivity) getActivity(),
                             "Position = "+(position%7),
                             Toast.LENGTH_SHORT).show();
@@ -267,34 +250,10 @@ public class MonthCalendarFragment extends Fragment {
                 }
             });
 
-            /*wGridview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
-                    if(!(parent.getAdapter().getItem(position).equals(""))) { //date[position]값이 공백이 아닐 경우만 toast 메세지 출력
-                        Toast.makeText((AppCompatActivity) getActivity(),
-                                ((DayItem)wGridViewAdapter.getItem(position)).year + "년" + (((DayItem)wGridViewAdapter.getItem(position)).month + 1) + "월" + ((DayItem)wGridViewAdapter.getItem(position)).day + "일",
-                                Toast.LENGTH_SHORT).show();
-                        //일의 정보는 position정보를 통해 text를 가져옴
-                        ((GridView)parent).setSelector(new PaintDrawable(Color.CYAN)); //배경색을 CYAN으로 변경
-                    }
-                }
-            });*/
-
             String time[] = new String[24];
             for(int i = 0; i <= 23; i++) {
                 time[i] = i+"";
             }
-            /*//girdview id를 가진 화면 레이아웃에 정의된 GridVies 객체 로딩
-            GridView tmgrid = (GridView) rootview.findViewById(R.id.timegrid);
-            //어댑터 준비 (date 배열 객체 이용, simple_list_item_1 리소스 사용)
-            ArrayAdapter<String> tmgridAdapter = new ArrayAdapter<String>(
-                    getActivity(),
-                    android.R.layout.simple_list_item_1,
-                    time);
-            //어댑터를 GridView 객체에 연결
-            tmgrid.setAdapter(tmgridAdapter);*/
-
 
             LinearLayout layout = (LinearLayout)rootview.findViewById(R.id.LinearLayout);
 
